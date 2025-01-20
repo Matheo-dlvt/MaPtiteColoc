@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsNumber, IsString, IsEmail, IsBoolean } from "class-validator";
+import { IsNumber, IsString, IsEmail, IsBoolean, IsArray } from "class-validator";
 import { UserEntity } from "../../databases/mysql/user.entity";
 
 export class UserPresenter {
@@ -22,4 +22,8 @@ export class UserPresenter {
   @Expose()
   @IsBoolean()
   isActive: boolean;
+
+  @Expose()
+  @IsArray()
+  colocations: string[];
 }

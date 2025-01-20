@@ -15,8 +15,4 @@ export class userToCreateInput {
   @Expose()
   @IsEmail()
   email: string;
-  
-  @Expose()
-  @IsString()
-  password_hash: string;
 }
