@@ -9,7 +9,7 @@ export const saveUserFinance = async (userFinanceToSave: UserFinanceToSaveDTO): 
 }
 
 export const getUserFinanceByUserId = async (userId: string): Promise<UserFinancePresenter> => {
-    return await UserFinanceService.getUserFinanceByUserId(userId);
+    return await UserFinanceService.findUserFinanceByUserId(userId);
 }
 
 export const getUserFinanceByColocationId = async (colocationId: string): Promise<UserFinancePresenter> => {

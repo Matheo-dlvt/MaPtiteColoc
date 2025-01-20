@@ -3,8 +3,6 @@ import * as colocationController from "../../controllers/colocation.controller";
 
 const routes = Router();
 
-routes.get("/", colocationController.getAllColocations);
-
 routes.post("/create", colocationController.createColocation);
 
 routes.get("/:id", colocationController.getColocationById);

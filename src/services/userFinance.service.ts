@@ -11,12 +11,12 @@ export class UserFinanceService {
         return await this.userFinanceRepository.saveUserFinance(userFinanceToSave);
     }
 
-    async getUserFinanceByUserId(userId: string): Promise<UserFinancePresenter> {
-        return await this.userFinanceRepository.getUserFinanceByUserId(userId);
+    async findUserFinanceByUserId(userId: string): Promise<UserFinancePresenter> {
+        return await this.userFinanceRepository.findUserFinanceByUserId(userId);
     }
 
-    async getUserFinanceByColocationId(colocationId: string): Promise<UserFinancePresenter> {
-        return await this.userFinanceRepository.getUserFinanceByColocationId(colocationId);
+    async findUserFinanceByColocationId(colocationId: string): Promise<UserFinancePresenter> {
+        return await this.userFinanceRepository.findUserFinanceByColocationId(colocationId);
     }
 
     async updateUserFinance(userFinanceId: string, userFinanceToUpdate: UserFinanceToUpdateDTO): Promise<UserFinancePresenter> {

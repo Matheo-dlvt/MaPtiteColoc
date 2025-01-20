@@ -11,8 +11,12 @@ export class ColocationService {
     return await this.colocationRepository.saveColocation(colocationToSave);
   }
 
-  async getColocationById(colocationId: string): Promise<ColocationPresenter> {
-    return await this.colocationRepository.getColocationById(colocationId);
+  async findColocationById(colocationId: string): Promise<ColocationPresenter> {
+    return await this.colocationRepository.findColocationById(colocationId);
+  }
+
+  async findColocationByName(name: string): Promise<ColocationPresenter> {
+    return await this.colocationRepository.findColocationByName(name);
   }
 
   async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter> {

@@ -8,8 +8,8 @@ const saveColocation = async (colocationToSave: ColocationToSaveDTO): Promise<Co
     return await ColocationService.saveColocation(colocationToSave);
 }
 
-const getColocationById = async (colocationId: string): Promise<ColocationPresenter> => {
-    return await ColocationService.getColocationById(colocationId);
+const findColocationById = async (colocationId: string): Promise<ColocationPresenter> => {
+    return await ColocationService.findcolocationById(colocationId);
 }
 
 const updateColocation = async (colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter> => {
