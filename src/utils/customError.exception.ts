@@ -1,4 +1,4 @@
-import { HTTPStatusCode } from "../types/error.d";
+import { HTTPStatusCode } from "../types/errors";
 
 export class CustomError extends Error {
     statusCode: HTTPStatusCode;
