@@ -15,7 +15,7 @@ export class UserService {
     const password_hash = "hash du mot de passe";
     // ON CRÉE L'UTILISATEUR
     
-    const createdUser = this.userRepository.create({...userToCreate, password_hash});
+    const createdUser = this.userRepository.createUser({...userToCreate, password_hash});
 
     // ON SAUVEGARDE L'UTILISATEUR
     const savedUser = await this.userRepository.save(createdUser);
