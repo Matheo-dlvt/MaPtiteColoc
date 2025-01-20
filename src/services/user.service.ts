@@ -1,6 +1,8 @@
 import { UserEntity } from "../databases/mysql/user.entity";
 import { UserRepository } from "../repositories/user.repository";
 import { UserToCreateDTO } from "../types/user/dtos";
+import { CustomError } from '../utils/customError.exception';
+import { HTTPStatusCode } from '../types/errors';
 
 export class UserService {
   private userRepository: UserRepository = new UserRepository();
@@ -9,7 +11,7 @@ export class UserService {
     // ON CHECK SI L'UTILISATEUR EXISTE DÉJÀ DANS LE REPOSITORY
     const existingUser = await this.userRepository.findUserByEmail(userToCreate.email);
     if (existingUser) {
-      throw new Error('User with this email already exists');
+      throw new CustomError('User already exists', 'uae001', HTTPStatusCode.CONFLICT);;
     }
     // ON HASH LE MOT DE PASSE
     const password_hash = "hash du mot de passe";
