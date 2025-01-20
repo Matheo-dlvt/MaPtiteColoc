@@ -15,4 +15,4 @@ const userFinanceSchema: Schema = new Schema({
     totalPaid: { type: Number, required: true },
 });
 
-export const UserFinance = mongoose.model<IUserFinance>("UserFinance", userFinanceSchema);
+export const UserFinanceModel = mongoose.model<IUserFinance>("UserFinance", userFinanceSchema);

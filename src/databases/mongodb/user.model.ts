@@ -17,4 +17,4 @@ const userSchema: Schema = new Schema({
     colocations: { type: Array, required: true },
 });
 
-export const User = mongoose.model<IUser>("User", userSchema);
+export const UserModel = mongoose.model<IUser>("User", userSchema);

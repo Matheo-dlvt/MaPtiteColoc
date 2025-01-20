@@ -19,4 +19,4 @@ const colocationSchema: Schema = new Schema({
     totalAmount: { type: Number, required: false },
 });
 
-export const Colocation = mongoose.model<IColocation>("Colocation", colocationSchema);
+export const ColocationModel = mongoose.model<IColocation>("Colocation", colocationSchema);

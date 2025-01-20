@@ -11,4 +11,4 @@ const userCredentialSchema = new Schema({
     password: { type: String, required: true },
 });
 
-export const UserCredential = mongoose.model<IUserCredential>("UserCredential", userCredentialSchema);
+export const UserCredentialModel = mongoose.model<IUserCredential>("UserCredential", userCredentialSchema);
