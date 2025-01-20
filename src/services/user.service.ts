@@ -74,12 +74,7 @@ export class UserService {
 
     console.log(`User with ID: ${userId} has been deactivated.`);
   }
-
-  /**
-   * Retrieves user details by their ID.
-   * @param userId - The ID of the user to retrieve
-   * @returns UserPresenter - Transformed user data
-   */
+  
   async getUserDetails(userId: string): Promise<UserPresenter> {
     const user = await this.userRepository.findUserById(userId);
 
