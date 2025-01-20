@@ -1,6 +1,6 @@
 import { User, IUser } from "../databases/mongodb/users.model";
 
-class UsersRepository {
+export class UserRepository {
 
     async createUser(user: Partial<IUser>): Promise<IUser> {
         const newUser = await User.create(user);
@@ -27,5 +27,3 @@ class UsersRepository {
         return await User.findByIdAndDelete(id);
     }
 }
-
-export default new UsersRepository();

@@ -5,6 +5,7 @@ export interface IUser extends Document {
   lastname: string;
   email: string;
   password_hash: string;
+  birthdate: Date;
   isActive: boolean;
 }
 
@@ -13,6 +14,9 @@ const UserSchema: Schema = new Schema({
   lastname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password_hash: { type: String, required: true },
+
+  birthdate: { type: Date, required: true },
+
   isActive: { type: Boolean, default: true },
 });
 
