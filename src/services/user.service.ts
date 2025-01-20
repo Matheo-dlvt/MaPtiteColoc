@@ -33,7 +33,7 @@ export class UserService {
       lastname: userToCreate.lastname,
       email: userToCreate.email,
       isActive: true,
-      roles: [],
+      colocations: [],
     });
 
     // Save the new user in the database
