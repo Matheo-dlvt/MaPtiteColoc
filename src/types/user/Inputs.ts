@@ -6,17 +6,17 @@ import { UserCredentialEntity } from "../../databases/mysql/userCredential.entit
 export class userToCreateInput {
   @Expose()
   @IsString()
-  firstname: UserEntity['firstname'];
+  firstname: string;
 
   @Expose()
   @IsString()
-  lastname: UserEntity['lastname'];
+  lastname: string;
   
   @Expose()
   @IsEmail()
-  email: UserEntity['email'];
+  email: string;
   
   @Expose()
   @IsString()
-  password_hash: UserCredentialEntity['password_hash'];
+  password_hash: string;
 }
