@@ -18,9 +18,10 @@ export class UserService {
     }
     const userDTOPassword = await hashPassword(userToCreate.password);
     const newUser = this.userRepository.createUser({...userToCreate, password_hash: userDTOPassword});
+    const newUserCredential = this.userRepository.createUserCredential({user_id: newUser._id, password: userDTOPassword});
     const savedUser = await this.userRepository.saveUser(newUser);
 
-    console.log(`User successfully created with ID: ${savedUser.id}`);
+    console.log(`User successfully created with ID: ${savedUser._id}`);
     const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true })
     return presentedUser;
   }
