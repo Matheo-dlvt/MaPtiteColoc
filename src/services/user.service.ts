@@ -3,11 +3,14 @@ import { UserRepository } from "../repositories/user.repository";
 import { UserToCreateDTO } from "../types/user/dtos";
 
 export class UserService {
-  private userRepository = new UserRepository();
+  private userRepository: UserRepository = new UserRepository();
 
   async registerUser(userToCreate: UserToCreateDTO): Promise<UserEntity> {
     // ON CHECK SI L'UTILISATEUR EXISTE DÉJÀ DANS LE REPOSITORY
-
+    const existingUser = await this.userRepository.findUserByEmail(userToCreate.email);
+    if (existingUser) {
+      throw new Error('User with this email already exists');
+    }
     // ON HASH LE MOT DE PASSE
     const password_hash = "hash du mot de passe";
     // ON CRÉE L'UTILISATEUR
