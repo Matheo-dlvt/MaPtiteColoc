@@ -1,10 +1,10 @@
-import { User, IUser } from "../databases/mongodb/users.model";
+import { User, IUser } from "../databases/mongodb/user.model";
 
 export class UserRepository {
 
     async createUser(user: Partial<IUser>): Promise<IUser> {
-        const newUser = await User.create(user);
-        return newUser;
+        const newUser = new User(user);
+        return await newUser.save();
     }
 
     async findUserById(id: string): Promise<IUser | null> {
