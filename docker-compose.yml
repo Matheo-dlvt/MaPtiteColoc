@@ -6,6 +6,7 @@ services:
       MYSQL_DATABASE: maptitecoloc
       MYSQL_USER: coloc
       MYSQL_PASSWORD: coloc
+      authentication-plugin: mysql_native_password
     volumes:
       - mysql-data:/var/lib/mysql
     ports:
