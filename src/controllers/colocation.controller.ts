@@ -1,25 +1,21 @@
 import { ColocationService } from '../services/colocation.service';
 
-export class ColocationController {
-    private colocationService: ColocationService = new ColocationService();
+const createColocation = async (colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> => {
+    return await ColocationService.createColocation(colocationToCreate);
+}
 
-    async createColocation(colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> {
-        return await this.colocationService.createColocation(colocationToCreate);
-    }
+const saveColocation = async (colocationToSave: ColocationToSaveDTO): Promise<ColocationPresenter> => {
+    return await ColocationService.saveColocation(colocationToSave);
+}
 
-    async saveColocation(colocationToSave: ColocationToSaveDTO): Promise<ColocationPresenter> {
-        return await this.colocationService.saveColocation(colocationToSave);
-    }
+const getColocationById = async (colocationId: string): Promise<ColocationPresenter> => {
+    return await ColocationService.getColocationById(colocationId);
+}
 
-    async getColocationById(colocationId: string): Promise<ColocationPresenter> {
-        return await this.colocationService.getColocationById(colocationId);
-    }
+const updateColocation = async (colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter> => {
+    return await ColocationService.updateColocation(colocationId, colocationToUpdate);
+}
 
-    async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter> {
-        return await this.colocationService.updateColocation(colocationId, colocationToUpdate);
-    }
-
-    async deleteColocation(colocationId: string): Promise<ColocationPresenter> {
-        return await this.colocationService.deleteColocation(colocationId);
-    }
+const deleteColocation = async (colocationId: string): Promise<ColocationPresenter> => {
+    return await ColocationService.deleteColocation(colocationId);
 }

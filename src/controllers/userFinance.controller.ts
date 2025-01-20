@@ -1,29 +1,25 @@
 import { UserFinanceService } from '../services/userFinance.service';
 
-export class UserFinanceController {
-    private userFinanceService: UserFinanceService = new UserFinanceService();
+export const createUserFinance = async (userFinanceToCreate: UserFinanceToCreateDTO): Promise<UserFinancePresenter> => {
+    return await UserFinanceService.createUserFinance(userFinanceToCreate);
+}
 
-    async createUserFinance(userFinanceToCreate: UserFinanceToCreateDTO): Promise<UserFinancePresenter> {
-        return await this.userFinanceService.createUserFinance(userFinanceToCreate);
-    }
+export const saveUserFinance = async (userFinanceToSave: UserFinanceToSaveDTO): Promise<UserFinancePresenter> => {
+    return await UserFinanceService.saveUserFinance(userFinanceToSave);
+}
 
-    async saveUserFinance(userFinanceToSave: UserFinanceToSaveDTO): Promise<UserFinancePresenter> {
-        return await this.userFinanceService.saveUserFinance(userFinanceToSave);
-    }
+export const getUserFinanceByUserId = async (userId: string): Promise<UserFinancePresenter> => {
+    return await UserFinanceService.getUserFinanceByUserId(userId);
+}
 
-    async getUserFinanceByUserId(userId: string): Promise<UserFinancePresenter> {
-        return await this.userFinanceService.getUserFinanceByUserId(userId);
-    }
+export const getUserFinanceByColocationId = async (colocationId: string): Promise<UserFinancePresenter> => {
+    return await UserFinanceService.getUserFinanceByColocationId(colocationId);
+}
 
-    async getUserFinanceByColocationId(colocationId: string): Promise<UserFinancePresenter> {
-        return await this.userFinanceService.getUserFinanceByColocationId(colocationId);
-    }
+export const updateUserFinance = async (userFinanceId: string, userFinanceToUpdate: UserFinanceToUpdateDTO): Promise<UserFinancePresenter> => {
+    return await UserFinanceService.updateUserFinance(userFinanceId, userFinanceToUpdate);
+}
 
-    async updateUserFinance(userFinanceId: string, userFinanceToUpdate: UserFinanceToUpdateDTO): Promise<UserFinancePresenter> {
-        return await this.userFinanceService.updateUserFinance(userFinanceId, userFinanceToUpdate);
-    }
-
-    async deleteUserFinance(userFinanceId: string): Promise<UserFinancePresenter> {
-        return await this.userFinanceService.deleteUserFinance(userFinanceId);
-    }
+export const deleteUserFinance = async (userFinanceId: string): Promise<UserFinancePresenter> => {
+    return await UserFinanceService.deleteUserFinance(userFinanceId);
 }
