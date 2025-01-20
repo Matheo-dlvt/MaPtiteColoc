@@ -1,15 +1,25 @@
-import { ColocationEntity } from "../databases/mysql/colocation.entity";
 import { ColocationRepository } from "../repositories/colocation.repository";
 
 export class ColocationService {
   private colocationRepository: ColocationRepository = new ColocationRepository();
 
-  // creation d'un colocation
+  async createColocation(colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> {
+    return await this.colocationRepository.createColocation(colocationToCreate);
+  }
 
-  // recuperation des users d'une colocation
+  async saveColocation(colocationToSave: ColocationToSaveDTO): Promise<ColocationPresenter> {
+    return await this.colocationRepository.saveColocation(colocationToSave);
+  }
 
-  // recuperation des colocations d'un user
+  async getColocationById(colocationId: string): Promise<ColocationPresenter> {
+    return await this.colocationRepository.getColocationById(colocationId);
+  }
 
-  //
-  
+  async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter> {
+    return await this.colocationRepository.updateColocation(colocationId, colocationToUpdate);
+  }
+
+  async deleteColocation(colocationId: string): Promise<ColocationPresenter> {
+    return await this.colocationRepository.deleteColocation(colocationId);
+  }
 }
