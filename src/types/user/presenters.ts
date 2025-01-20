@@ -5,19 +5,19 @@ import { UserEntity } from "../../databases/mysql/user.entity";
 export class UserPresenter {
   @Expose()
   @IsNumber()
-  id: UserEntity['id'];
+  id: string;
 
   @Expose()
   @IsString()
-  firstname: UserEntity['firstname'];
+  firstname: string;
 
   @Expose()
   @IsString()
-  lastname: UserEntity['lastname'];
+  lastname: string;
   
   @Expose()
   @IsEmail()
-  email: UserEntity['email'];
+  email: string;
 
   @Expose()
   @IsBoolean()

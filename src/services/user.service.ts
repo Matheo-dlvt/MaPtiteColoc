@@ -1,4 +1,4 @@
-import { UserEntity } from "../databases/mysql/user.entity";
+// import { UserEntity } from "../databases/mysql/user.entity";
 import { UserRepository } from "../repositories/user.repository";
 import { UserToCreateDTO } from "../types/user/dtos";
 import { CustomError } from '../utils/customError.exception';
@@ -10,7 +10,7 @@ import { hashPassword } from "./bcrypt.service";
 export class UserService {
   private userRepository: UserRepository = new UserRepository();
 
-  async registerUser(userToCreate: UserToCreateDTO): Promise<UserEntity> {
+  async registerUser(userToCreate: UserToCreateDTO): Promise<UserPresenter> {
       
     const existingUser = await this.userRepository.findUserByEmail(userToCreate.email);
     if (existingUser) {
