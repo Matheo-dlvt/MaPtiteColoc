@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
+import { AuthService } from "../services/auth.service";
 import { UserToCreateDTO } from "../types/user/dtos";
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
@@ -22,6 +23,16 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
 
     const createdUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
     res.status(201).json(createdUser); // à vous de créer une class pour gérer les success
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const authService = new AuthService();
+    const user = await authService.login(req.body.email, req.body.password);
+    res.status(200).json(user);
   } catch (error) {
     throw error;
   }
