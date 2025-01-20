@@ -1,4 +1,4 @@
-import { Colocation, IColocation } from '../databases/mongodb/colocations.model';
+import { Colocation, IColocation } from '../databases/mongodb/colocation.model';
 
 class ColocationsRepository {
     async createColocation(colocation: Partial<IColocation>): Promise<IColocation> {
