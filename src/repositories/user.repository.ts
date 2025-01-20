@@ -12,12 +12,12 @@ export class UserRepository{
         this.userDB = connectMySQLDB.getRepository(UserEntity);
     }
 
-    create(user: userToCreateInput): UserEntity {
+    createUser(user: userToCreateInput): UserEntity {
         const newUser = this.userDB.create(user);
         return newUser
     }
 
-    async save(user: UserEntity): Promise<UserEntity> {
+    async saveUser(user: UserEntity): Promise<UserEntity> {
         return this.userDB.save(user);
     }
 

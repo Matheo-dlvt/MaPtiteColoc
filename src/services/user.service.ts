@@ -18,7 +18,7 @@ export class UserService {
     const createdUser = this.userRepository.createUser({...userToCreate, password_hash});
 
     // ON SAUVEGARDE L'UTILISATEUR
-    const savedUser = await this.userRepository.save(createdUser);
+    const savedUser = await this.userRepository.saveUser(createdUser);
 
     // APPELER LE EMAIL SERVICE POUR ENVOYER UNE NOTIFICATION DE CREATION DE COMPTE A L'UTILISATEUR NOUVELLEMENT CRÉÉ
 
