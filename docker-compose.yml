@@ -3,7 +3,7 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: root
+      MYSQL_DATABASE: maptitecoloc
       MYSQL_USER: coloc
       MYSQL_PASSWORD: coloc
     volumes:
