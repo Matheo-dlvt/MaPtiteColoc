@@ -1,8 +1,6 @@
 import { UserCredentialEntity } from "../databases/mysql/userCredential.entity";
 import { Repository } from "typeorm";
 import { connectMySQLDB } from "../configs/databases/mysql.config";
-import { UserToCreateDTO } from "../types/user/dtos";
-import { userToCreateInput } from "../types/user/Inputs";
 
 export class UserCredentialRepository{
 
