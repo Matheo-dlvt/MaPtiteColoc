@@ -1,29 +1,45 @@
-import { User, IUser } from "../databases/mongodb/user.model";
+import { UserEntity } from "../databases/mysql/user.entity";
+import { Repository } from "typeorm";
+import { connectMySQLDB } from "../configs/databases/mysql.config";
+import { UserToCreateDTO } from "../types/user/dtos";
+import { userToCreateInput } from "../types/user/Inputs";
 
-export class UserRepository {
+export class UserRepository{
 
-    async createUser(user: Partial<IUser>): Promise<IUser> {
-        const newUser = new User(user);
-        return await newUser.save();
+    private userDB: Repository<UserEntity>;
+
+    constructor() {
+        this.userDB = connectMySQLDB.getRepository(UserEntity);
     }
 
-    async findUserById(id: string): Promise<IUser | null> {
-        return await User.findById(id);
+    create(user: userToCreateInput): UserEntity {
+        const newUser = this.userDB.create(user);
+        return newUser
     }
 
-    async findUserByEmail(email: string): Promise<IUser | null> {
-        return await User.findOne({ email });
+    async save(user: UserEntity): Promise<UserEntity> {
+        return this.userDB.save(user);
     }
 
-    async findAllUsers(): Promise<IUser[]> {
-        return await User.find();
+    async findUserById(userId: number): Promise<UserEntity | null> {
+        return await this.userDB.findOneBy({ id: userId });
     }
 
-    async updateUser(id: string, user: Partial<IUser>): Promise<IUser | null> {
-        return await User.findByIdAndUpdate(id, user, { new: true });
+    async findUserByEmail(email: string): Promise<UserEntity | null> {
+        return await this.userDB.findOneBy({ email: email });
     }
 
-    async deleteUser(id: string): Promise<IUser | null> {
-        return await User.findByIdAndDelete(id);
+    async findAllUsers(): Promise<UserEntity[]> {
+        return await this.userDB.find();
+    }
+
+    async updateUser(userId: number, user: UserToCreateDTO): Promise<UserEntity | null> {
+        await this.userDB.update(userId, user);
+        return await this.findUserById(userId);
+    }
+
+    async deleteUser(userId: number): Promise<UserEntity | null> {
+        await this.userDB.delete(userId);
+        return await this.findUserById(userId);
     }
 }
