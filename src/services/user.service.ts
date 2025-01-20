@@ -40,7 +40,7 @@ export class UserService {
     const savedUser = await this.userRepository.saveUser(newUser);
 
     // Create credentials associated with the user
-    await this.userCredentialRepository.createUserCredential({
+    await this.userCredentialRepository.saveUserCredential({
       _id: savedUser._id,
       userId: savedUser._id,
       password_hash: hashedPassword,
