@@ -3,28 +3,25 @@ import { UserRepository } from "../repositories/user.repository";
 import { UserToCreateDTO } from "../types/user/dtos";
 import { CustomError } from '../utils/customError.exception';
 import { HTTPStatusCode } from '../types/errors';
+import { plainToInstance } from "class-transformer";
+import { UserPresenter } from "../types/user/presenters";
+import { hashPassword } from "./bcrypt.service";
 
 export class UserService {
   private userRepository: UserRepository = new UserRepository();
 
   async registerUser(userToCreate: UserToCreateDTO): Promise<UserEntity> {
-    // ON CHECK SI L'UTILISATEUR EXISTE DÉJÀ DANS LE REPOSITORY
+      
     const existingUser = await this.userRepository.findUserByEmail(userToCreate.email);
     if (existingUser) {
       throw new CustomError('User already exists', 'uae001', HTTPStatusCode.CONFLICT);;
     }
-    // ON HASH LE MOT DE PASSE
-    const password_hash = "hash du mot de passe";
-    // ON CRÉE L'UTILISATEUR
-    
-    const createdUser = this.userRepository.createUser({...userToCreate, password_hash});
+    const userDTOPassword = await hashPassword(userToCreate.password);
+    const newUser = this.userRepository.createUser({...userToCreate, password_hash: userDTOPassword});
+    const savedUser = await this.userRepository.saveUser(newUser);
 
-    // ON SAUVEGARDE L'UTILISATEUR
-    const savedUser = await this.userRepository.saveUser(createdUser);
-
-    // APPELER LE EMAIL SERVICE POUR ENVOYER UNE NOTIFICATION DE CREATION DE COMPTE A L'UTILISATEUR NOUVELLEMENT CRÉÉ
-
-    // ON RETOURNE L'UTILISATEUR CRÉÉ
-    return savedUser;
+    console.log(`User successfully created with ID: ${savedUser.id}`);
+    const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true })
+    return presentedUser;
   }
 }
