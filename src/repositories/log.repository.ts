@@ -10,23 +10,23 @@ export class LogRepository{
     }
 
     async findAllLogByUserId(userId: string): Promise<ILog | null>{
-        return await LogModel.filter({ userId: userId });
+        return await LogModel.find({ userId: userId });
     }
 
     async findAllLogByAction(action: string): Promise<ILog | null>{
-        return await LogModel.filter({ action: action });
+        return await LogModel.find({ action: action });
     }
 
     async findAllLogByObject(object: string): Promise<ILog | null>{
-        return await LogModel.filter({ object: object });
+        return await LogModel.find({ object: object });
     }
 
     async findAllLogByDate(date: Date): Promise<ILog | null>{
-        return await LogModel.filter({ date: date });
+        return await LogModel.find({ date: date });
     }
 
     async findAllLogByActionAndObject(action: string, object: string): Promise<ILog | null>{
-        return await LogModel.filter({ action: action, object: object });
+        return await LogModel.find({ action: action, object: object });
     }
 
     async getAllLogs(): Promise<ILog | null> {
