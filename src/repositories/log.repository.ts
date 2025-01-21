@@ -2,7 +2,7 @@ import { ILog, LogModel } from "../databases/mongodb/log.model";
 
 export class LogRepository{
     async createLog(log: ILog): Promise<ILog>{
-        return await LogModel.create(log);
+        return await LogModel.save(log);
     }
 
     async findLogById(logId: string): Promise<ILog | null>{
