@@ -36,25 +36,23 @@ export class UserService {
     console.log(`User successfully created with ID: ${savedUser._id}`);
 
     // Transform saved user to UserPresenter
-    const presentedUser = plainToInstance(UserPresenter, savedUser, {
-      excludeExtraneousValues: true,
-    });
+    const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true });
 
     return presentedUser;
   }
 
-  async deleteUser(userId: string): Promise<void> {
+  async deleteUser(userId: string): Promise<UserPresenter> {
     const user = await this.userRepository.findUserById(userId);
 
     if (!user) {
       throw new CustomError('User not found', 'unf001', HTTPStatusCode.NOT_FOUND);
     }
 
-    // Perform a logical deletion (e.g., setting isActive to false)
     user.isActive = false;
-    await this.userRepository.saveUser(user);
+    const savedUser = await this.userRepository.updateUser(user._id, user);
 
-    console.log(`User with ID: ${userId} has been deactivated.`);
+    const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true });
+    return presentedUser;
   }
   
   async getUserDetails(userId: string): Promise<UserPresenter> {

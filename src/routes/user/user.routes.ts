@@ -11,4 +11,6 @@ routes.post("/refresh-token", userController.refreshToken);
 
 routes.get("/me", authenticateJWT, userController.getMe);
 
+routes.delete("/deleteMe", authenticateJWT, userController.deleteMe);
+
 export default routes;
