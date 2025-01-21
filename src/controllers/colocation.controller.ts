@@ -56,7 +56,7 @@ export const updateColocation = async (req: Request, res: Response): Promise<voi
     try {
         const colocationId = req.body.colocationId;
         const colocationToUpdate = plainToInstance(ColocationToUpdateDTO, req.body, { excludeExtraneousValues: true });
-        const colocation = await colocationService.updateColocation(colocationId, colocationToUpdate);
+        const colocation = await colocationService.updateColocation(colocationToUpdate);
         res.status(200).json(colocation);
     } 
     catch (error) {

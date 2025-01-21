@@ -25,7 +25,7 @@ export class UserFinanceService {
         return await this.userFinanceRepository.updateUserFinance(userFinanceId, userFinanceToUpdate);
     }
 
-    async deleteUserFinance(userFinanceId: string): Promise<UserFinancePresenter> {
+    async deleteUserFinance(userFinanceId: string): Promise<UserFinancePresenter|null> {
         return await this.userFinanceRepository.deleteUserFinance(userFinanceId);
     }
 }
