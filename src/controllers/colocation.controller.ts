@@ -17,14 +17,35 @@ export const createColocation = async (req: Request, res: Response): Promise<voi
     }
 };
 
-// export const findColocationById = async (colocationId: string): Promise<ColocationPresenter | null> => {
-//     return await colocationService.findColocationById(colocationId);
-// };
+export const findColocationById = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const colocationId = req.body.colocationId;
+        const colocation = await colocationService.findColocationById(colocationId);
+        res.status(200).json(colocation);
+    } 
+    catch (error) {
+        throw error;
+    }
+};
 
-// export const findColocationByName = async (name: string): Promise<ColocationPresenter | null> => {
-//     return await colocationService.findColocationByName(name);
-// };
+export const findColocationByName = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const colocation = await colocationService.findColocationByName(req.body.colocationName);
+        res.status(200).json(colocation);
+    } 
+    catch (error) {
+        throw error;
+    }
+};
 
-// export const deleteColocation = async (colocationId: string): Promise<ColocationPresenter | null> => {
-//     return await colocationService.deleteColocation(colocationId);
-//};
+export const deleteColocationForUser = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const colocationId = req.body.colocationId;
+        const userId = req.body.userId;
+        const colocation = await colocationService.deleteColocationForUser(userId, colocationId);
+        res.status(200).json(colocation);
+    } 
+    catch (error) {
+        throw error;
+    }
+};
