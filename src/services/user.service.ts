@@ -68,4 +68,28 @@ export class UserService {
 
     return presentedUser;
   }
+
+  async findUserById(userId: string): Promise<UserPresenter | null> {
+    const user = await this.userRepository.findUserById(userId);
+
+    if (!user) {
+      throw new CustomError('User not found', 'unf001', HTTPStatusCode.NOT_FOUND);
+    }
+
+    const presentedUser = plainToInstance(UserPresenter, user, {
+      excludeExtraneousValues: true,
+    });
+
+    return presentedUser;
+  }
+
+  async updateUser(userId: string, user: UserPresenter): Promise<UserPresenter> {
+    const updatedUser = await this.userRepository.updateUser(userId, user);
+
+    const presentedUser = plainToInstance(UserPresenter, updatedUser, {
+      excludeExtraneousValues: true,
+    });
+
+    return presentedUser;
+  }
 }
