@@ -1,23 +1,30 @@
 import { ColocationService } from '../services/colocation.service';
 import { ColocationToCreateDTO, ColocationToUpdateDTO, ColocationToSaveDTO } from '../types/colocation/dtos';
 import { ColocationPresenter } from '../types/colocation/presenters';
+import { plainToInstance } from "class-transformer";
+import { validate } from "class-validator";
+import { Request, Response } from "express";
 
-const createColocation = async (colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> => {
-    return await ColocationService.createColocation(colocationToCreate);
-}
+const colocationService = new ColocationService();
 
-const saveColocation = async (colocationToSave: ColocationToSaveDTO): Promise<ColocationPresenter> => {
-    return await ColocationService.saveColocation(colocationToSave);
-}
+export const createColocation = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const colocationToCreate = plainToInstance(ColocationToCreateDTO, req.body, { excludeExtraneousValues: true });
+        const colocation = await colocationService.createColocation(colocationToCreate);
+        res.status(201).json(colocation);
+    } catch (error) {
+        throw error;
+    }
+};
 
-const findColocationById = async (colocationId: string): Promise<ColocationPresenter> => {
-    return await ColocationService.findcolocationById(colocationId);
-}
+// export const findColocationById = async (colocationId: string): Promise<ColocationPresenter | null> => {
+//     return await colocationService.findColocationById(colocationId);
+// };
 
-const updateColocation = async (colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter> => {
-    return await ColocationService.updateColocation(colocationId, colocationToUpdate);
-}
+// export const findColocationByName = async (name: string): Promise<ColocationPresenter | null> => {
+//     return await colocationService.findColocationByName(name);
+// };
 
-const deleteColocation = async (colocationId: string): Promise<ColocationPresenter> => {
-    return await ColocationService.deleteColocation(colocationId);
-}
+// export const deleteColocation = async (colocationId: string): Promise<ColocationPresenter | null> => {
+//     return await colocationService.deleteColocation(colocationId);
+//};

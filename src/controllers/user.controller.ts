@@ -50,8 +50,18 @@ export const refreshToken = async (req: Request, res: Response) => {
 
 export const getMe = async (req: Request, res: Response) => {
   try {
-    const token = await userService.getUserDetails(req.body.userId);
-    res.status(200).json({ token });
+    const me = await userService.getUserDetails(req.body.userId);
+    res.status(200).json({ me });
+  }
+  catch (error) {
+    throw error;
+  }
+};
+
+export const deleteMe = async (req: Request, res: Response) => {
+  try {
+    const deletedUser = await userService.deleteUser(req.body.userId);
+    res.status(200).json({ deletedUser });
   }
   catch (error) {
     throw error;
