@@ -5,18 +5,11 @@ import { HTTPStatusCode } from '../types/errors';
 import { plainToInstance } from "class-transformer";
 import { UserPresenter } from "../types/user/presenters";
 import { hashPassword } from "./bcrypt.service";
-import { UserCredentialRepository } from '../repositories/userCredential.repository';
 import { IUser, UserModel } from '../databases/mongodb/user.model';
 
 export class UserService {
   private userRepository: UserRepository = new UserRepository();
-  private userCredentialRepository: UserCredentialRepository = new UserCredentialRepository();
 
-  /**
-   * Registers a new user with hashed password and creates user credentials.
-   * @param userToCreate - Data Transfer Object for user creation
-   * @returns UserPresenter - Transformed user data
-   */
   async registerUser(userToCreate: UserToCreateDTO): Promise<UserPresenter> {
     // Check if the user already exists by email
     const existingUser = await this.userRepository.findUserByEmail(userToCreate.email);
@@ -32,19 +25,13 @@ export class UserService {
       firstname: userToCreate.firstname,
       lastname: userToCreate.lastname,
       email: userToCreate.email,
+      password: hashedPassword,
       isActive: true,
       colocations: [],
     });
 
     // Save the new user in the database
     const savedUser = await this.userRepository.saveUser(newUser);
-
-    // Create credentials associated with the user
-    await this.userCredentialRepository.saveUserCredential({
-      _id: savedUser._id,
-      userId: savedUser._id,
-      password_hash: hashedPassword,
-    });
 
     console.log(`User successfully created with ID: ${savedUser._id}`);
 
@@ -56,11 +43,6 @@ export class UserService {
     return presentedUser;
   }
 
-  /**
-   * Deletes a user by their ID.
-   * @param userId - The ID of the user to delete
-   * @returns void
-   */
   async deleteUser(userId: string): Promise<void> {
     const user = await this.userRepository.findUserById(userId);
 

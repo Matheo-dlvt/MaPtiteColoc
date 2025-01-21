@@ -12,6 +12,6 @@ routes.post("/register", userController.registerUser);
 routes.post("/login", userController.loginUser);
 
 // Route pour récupérer le profil de l'utilisateur connecté
-routes.get("/me", authenticateJWT, userController.findUser);
+//routes.get("/me", authenticateJWT, userController.findUser);
 
 export default routes;

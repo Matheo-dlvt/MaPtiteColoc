@@ -1,9 +1,6 @@
 import { IUser, UserModel } from '../databases/mongodb/user.model';
 
 export class UserRepository {
-    createUserCredential(arg0: { user_id: string; password_hash: string; }) {
-      throw new Error("Method not implemented.");
-    }
 
     createUser(user: IUser): IUser {
         return new UserModel(user);
@@ -13,7 +10,7 @@ export class UserRepository {
         return await UserModel.create(user);
     }
 
-    async findUserById(userId: number): Promise<IUser | null> {
+    async findUserById(userId: string): Promise<IUser | null> {
         return await UserModel.findById(userId);
     }
 
@@ -25,11 +22,11 @@ export class UserRepository {
         return await UserModel.find();
     }
 
-    async updateUser(userId: number, user: IUser): Promise<IUser | null> {
+    async updateUser(userId: string, user: IUser): Promise<IUser | null> {
         return await UserModel.findByIdAndUpdate(userId, user);
     }
 
-    async deleteUser(userId: number): Promise<IUser | null> {
+    async deleteUser(userId: string): Promise<IUser | null> {
         return await UserModel.findByIdAndDelete(userId);
     }
 }
