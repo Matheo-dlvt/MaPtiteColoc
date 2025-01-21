@@ -1,8 +1,12 @@
 import { Expose } from "class-transformer";
 import { UserEntity } from "../../databases/mysql/user.entity";
-import { IsString, IsEmail, IsArray } from "class-validator";
+import { IsString, IsEmail, IsArray, IsBoolean } from "class-validator";
 
 export class UserToCreateDTO {
+  @Expose()
+  @IsString()
+  _id: string;
+
   @Expose()
   @IsString()
   firstname: string;
@@ -10,12 +14,20 @@ export class UserToCreateDTO {
   @Expose()
   @IsString()
   lastname: string;
-  
+
   @Expose()
-  @IsEmail()
+  @IsString()
   email: string;
 
   @Expose()
   @IsString()
   password: string;
+  
+  @Expose()
+  @IsBoolean()
+  isActive: boolean;
+
+  @Expose()
+  @IsArray()
+  colocations: string[];
 }
