@@ -58,8 +58,8 @@ export class ColocationService {
   //   return presentedUser;
   // }
 
-  async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
-    const colocation = await this.colocationRepository.findColocationById(colocationId);
+  async updateColocation(colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
+    const colocation = await this.colocationRepository.findColocationByName(colocationToUpdate.name);
     if (!colocation) {
       throw new CustomError("Colocation not found", "cnf001", HTTPStatusCode.BAD_REQUEST);
     }
@@ -71,7 +71,7 @@ export class ColocationService {
     colocation.usersIds = colocationToUpdate.usersIds || colocation.usersIds;
     colocation.totalAmount = colocationToUpdate.totalAmount || colocation.totalAmount;
 
-    const updatedColocation = await this.colocationRepository.updateColocation(colocationId, colocation);
+    const updatedColocation = await this.colocationRepository.updateColocation(colocation._id, colocation);
 
     const presentedColocation = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
     return presentedColocation;
