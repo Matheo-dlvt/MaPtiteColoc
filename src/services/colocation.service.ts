@@ -5,6 +5,7 @@ import { ColocationPresenter } from "../types/colocation/presenters";
 import { UserService } from "./user.service";
 import { plainToInstance } from 'class-transformer';
 import { UserPresenter } from "../types/user/presenters";
+import { findColocationByName } from '../controllers/colocation.controller';
 
 export class ColocationService {
   private colocationRepository: ColocationRepository = new ColocationRepository();
@@ -56,8 +57,8 @@ export class ColocationService {
   //   return presentedUser;
   // }
 
-  async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
-    const colocation = await this.colocationRepository.findColocationById(colocationId);
+  async updateColocation(colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
+    const colocation = await this.colocationRepository.findColocationByName(colocationToUpdate.name);
     if (!colocation) {
       throw new Error("Colocation not found");
     }
@@ -69,7 +70,7 @@ export class ColocationService {
     colocation.usersIds = colocationToUpdate.usersIds || colocation.usersIds;
     colocation.totalAmount = colocationToUpdate.totalAmount || colocation.totalAmount;
 
-    const updatedColocation = await this.colocationRepository.updateColocation(colocationId, colocation);
+    const updatedColocation = await this.colocationRepository.updateColocation(colocation._id, colocation);
 
     const presentedColocation = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
     return presentedColocation;
