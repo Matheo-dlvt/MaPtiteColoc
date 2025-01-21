@@ -9,27 +9,27 @@ export class LogRepository{
         return await LogModel.findById(logId);
     }
 
-    async findAllLogByUserId(userId: string): Promise<ILog | null>{
+    async findAllLogByUserId(userId: string): Promise<ILog[]>{
         return await LogModel.find({ userId: userId });
     }
 
-    async findAllLogByAction(action: string): Promise<ILog | null>{
+    async findAllLogByAction(action: string): Promise<ILog[]>{
         return await LogModel.find({ action: action });
     }
 
-    async findAllLogByObject(object: string): Promise<ILog | null>{
+    async findAllLogByObject(object: string): Promise<ILog[]>{
         return await LogModel.find({ object: object });
     }
 
-    async findAllLogByDate(date: Date): Promise<ILog | null>{
+    async findAllLogByDate(date: Date): Promise<ILog[]>{
         return await LogModel.find({ date: date });
     }
 
-    async findAllLogByActionAndObject(action: string, object: string): Promise<ILog | null>{
+    async findAllLogByActionAndObject(action: string, object: string): Promise<ILog[]>{
         return await LogModel.find({ action: action, object: object });
     }
 
-    async getAllLogs(): Promise<ILog | null> {
+    async getAllLogs(): Promise<ILog[]> {
         return await LogModel.find();
     }
 } 
