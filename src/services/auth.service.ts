@@ -27,31 +27,31 @@ export class AuthService {
         const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, { expiresIn: "1h" });
         const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_REFRESH_SECRET!, { expiresIn: "7d" });
 
-        const log = new LogModel({
-            userId: user._id,
-            userEmail: user.email,
-            action: "login",
-            object: "user",
-            validated: true,
-            date: Date.now()
-        });
+        // const log = new LogModel({
+        //     userId: user._id,
+        //     userEmail: user.email,
+        //     action: "login",
+        //     object: "user",
+        //     validated: true,
+        //     date: Date.now()
+        // });
 
-        this.logService.createLog(log);
+        // this.logService.createLog(log);
 
         return { accessToken, refreshToken, user };
         } 
         catch (error) {
-            const log = new LogModel({
-                userId: null,
-                userEmail: email,
-                colocationName: null,
-                action: "login",
-                object: "user",
-                validated: false,
-                date: Date.now()
-            });
+            // const log = new LogModel({
+            //     userId: null,
+            //     userEmail: email,
+            //     colocationName: null,
+            //     action: "login",
+            //     object: "user",
+            //     validated: false,
+            //     date: Date.now()
+            // });
     
-            this.logService.createLog(log);
+            // this.logService.createLog(log);
             throw new CustomError("Invalid email or password", "iep001", HTTPStatusCode.UNAUTHORIZED);
         }
     }
