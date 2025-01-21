@@ -20,20 +20,14 @@ export class UserToCreateDTO {
   email: string;
 
   @Expose()
+  @IsString()
+  password: string;
+  
+  @Expose()
   @IsBoolean()
   isActive: boolean;
 
   @Expose()
   @IsArray()
   colocations: string[];
-}
-
-export class UserCredentialDTO {
-  @Expose()
-  @IsString()
-  userId: string;
-
-  @Expose()
-  @IsString()
-  password: string;
 }
