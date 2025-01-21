@@ -34,27 +34,27 @@ export class ColocationService {
     return await this.colocationRepository.findColocationByName(name);
   }
 
-  async deleteColocationForUser(userId: string, colocationId: string): Promise<ColocationPresenter | null> {
-    const user = await this.userService.findUserById(userId);
-    if (!user) {
-      throw new Error("User not found");
-    }
+  // async deleteColocationForUser(userId: string, colocationId: string): Promise<ColocationPresenter | null> {
+  //   const user = await this.userService.findUserById(userId);
+  //   if (!user) {
+  //     throw new Error("User not found");
+  //   }
 
-    const colocation = await this.colocationRepository.findColocationById(colocationId);
-    if (!colocation) {
-      throw new Error("Colocation not found");
-    }
+  //   const colocation = await this.colocationRepository.findColocationById(colocationId);
+  //   if (!colocation) {
+  //     throw new Error("Colocation not found");
+  //   }
 
-    if (!colocation.usersIds.includes(userId)) {
-      throw new Error("User not in Colocation");
-    }
+  //   if (!colocation.usersIds.includes(userId)) {
+  //     throw new Error("User not in Colocation");
+  //   }
 
-    user.colocations = user.colocations.filter(id => id !== colocationId);
-    const updatedUser = await this.userService.updateUser(userId, user);
+  //   user.colocations = user.colocations.filter(id => id !== colocationId);
+  //   const updatedUser = await this.userService.updateUser(userId, user);
 
-    const presentedUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
-    return presentedUser;
-  }
+  //   const presentedUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
+  //   return presentedUser;
+  // }
 
   async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
     const colocation = await this.colocationRepository.findColocationById(colocationId);
