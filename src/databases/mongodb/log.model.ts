@@ -12,13 +12,13 @@ export interface ILog{
 }
 
 const logSchema: Schema = new Schema({
-    userId: { type: String, required: true },
-    userEmail: { type: String, required: true },
-    colocationName: { type: String, required: true },
-    action: { type: String, required: true },
-    object: { type: String, required: true },
-    validated: { type: Boolean, required: true },
-    date: { type: Date, required: true },
+    userId: { type: String, required: false, nullable: true },
+    userEmail: { type: String, required: false, nullable: true },
+    colocationName: { type: String, required: false, nullable: true },
+    action: { type: String, required: false, nullable: true },
+    object: { type: String, required: false, nullable: true },
+    validated: { type: Boolean, required: false, nullable: true },
+    date: { type: Date, required: false, nullable: true },
 });
 
 export const LogModel = mongoose.model<ILog>("Log", logSchema);
