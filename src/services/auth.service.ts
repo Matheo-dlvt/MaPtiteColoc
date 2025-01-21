@@ -7,6 +7,7 @@ import { CustomError } from '../utils/customError.exception';
 import { HTTPStatusCode } from '../types/errors';
 import { LogModel } from "../databases/mongodb/log.model";
 import { LogService } from "./log.service";
+import { setConnectedUserId } from '../static/userConnectd';
 
 export class AuthService {
     private userRepository = new UserRepository();
@@ -37,6 +38,8 @@ export class AuthService {
         });
 
         this.logService.createLog(log);
+
+        setConnectedUserId(user._id);
 
         return { accessToken, refreshToken, user };
         } 

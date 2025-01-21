@@ -8,6 +8,7 @@ import { hashPassword } from "./bcrypt.service";
 import { IUser, UserModel } from '../databases/mongodb/user.model';
 import { LogService } from "./log.service";
 import { LogModel } from "../databases/mongodb/log.model";
+import { getConnectedUserId, setConnectedUserId } from "../static/userConnectd";
 
 export class UserService {
   private userRepository: UserRepository = new UserRepository();
@@ -41,17 +42,19 @@ export class UserService {
     // Transform saved user to UserPresenter
     const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true });
 
-    // const log = new LogModel({
-    //   userId: savedUser._id,
-    //   userEmail: savedUser.email,
-    //   colocationName: null,
-    //   action: "register",
-    //   object: "user",
-    //   validated: true,
-    //   date: new Date()
-    // });
+    const log = new LogModel({
+      userId: savedUser._id,
+      userEmail: savedUser.email,
+      colocationName: null,
+      action: "register",
+      object: "user",
+      validated: true,
+      date: new Date()
+    });
 
-    // this.logService.createLog(log);
+    this.logService.createLog(log);
+
+    setConnectedUserId(savedUser._id);
 
     return presentedUser;
   }
@@ -68,17 +71,17 @@ export class UserService {
 
     const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true });
 
-    // const log = new LogModel({
-    //   userId: user._id,
-    //   userEmail: user.email,
-    //   colocationName: null,
-    //   action: "delete",
-    //   object: "user",
-    //   validated: true,
-    //   date: Date.now()
-    // });
+    const log = new LogModel({
+      userId: user._id,
+      userEmail: user.email,
+      colocationName: null,
+      action: "delete",
+      object: "user",
+      validated: true,
+      date: Date.now()
+    });
 
-    // this.logService.createLog(log);
+    this.logService.createLog(log);
 
     return presentedUser;
   }
