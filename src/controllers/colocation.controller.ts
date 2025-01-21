@@ -1,4 +1,6 @@
 import { ColocationService } from '../services/colocation.service';
+import { ColocationToCreateDTO, ColocationToUpdateDTO, ColocationToSaveDTO } from '../types/colocation/dtos';
+import { ColocationPresenter } from '../types/colocation/presenters';
 
 const createColocation = async (colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> => {
     return await ColocationService.createColocation(colocationToCreate);

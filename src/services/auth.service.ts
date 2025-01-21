@@ -2,11 +2,9 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/user.repository";
 import { IUser } from "../databases/mongodb/user.model";
-import { UserCredentialRepository } from '../repositories/userCredential.repository';
 
 export class AuthService {
     private userRepository = new UserRepository();
-    private UserCredentialRepository = new UserCredentialRepository();
 
     async login(email: string, password: string): Promise<{ accessToken: string; refreshToken: string; user: IUser }> {
 
@@ -15,12 +13,7 @@ export class AuthService {
             throw new Error("Invalid email or password.");
         }
 
-        const userCredential = await this.UserCredentialRepository.findUserCredentialByUserId(user._id);
-        if (!userCredential) {
-            throw new Error("Invalid email or password.");
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, userCredential.password_hash);
+        const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             throw new Error("Invalid email or password.");
         }

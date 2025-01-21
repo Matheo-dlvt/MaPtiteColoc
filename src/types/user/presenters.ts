@@ -5,7 +5,7 @@ import { UserEntity } from "../../databases/mysql/user.entity";
 export class UserPresenter {
   @Expose()
   @IsNumber()
-  id: string;
+  _id: string;
 
   @Expose()
   @IsString()

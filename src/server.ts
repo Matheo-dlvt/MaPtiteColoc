@@ -11,7 +11,7 @@ Promise.all([
 //   connectMySQLDB.initialize(), // Connexion à MySQL
   connectMongooseDB(),        // Connexion à MongoDB
 ]).then(() => {
-  console.log("Connected to MySQL!");
+  // console.log("Connected to MySQL!");
   console.log("Connected to MongoDB!");
 
   // Lancer le serveur

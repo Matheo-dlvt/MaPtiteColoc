@@ -1,4 +1,6 @@
 import { ColocationRepository } from "../repositories/colocation.repository";
+import { ColocationToCreateDTO, ColocationToUpdateDTO, ColocationToSaveDTO } from "../types/colocation/dtos";
+import { ColocationPresenter } from "../types/colocation/presenters";
 
 export class ColocationService {
   private colocationRepository: ColocationRepository = new ColocationRepository();
