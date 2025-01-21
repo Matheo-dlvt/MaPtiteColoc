@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
 export interface ILog{
-    _id: string;
     userId: string;
     userEmail: string;
     colocationName: string;
