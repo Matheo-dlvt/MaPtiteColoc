@@ -11,4 +11,6 @@ routes.get("/findColocationByName", authenticateJWT, colocationController.findCo
 
 routes.delete("/deleteColocationForUser", authenticateJWT, colocationController.deleteColocationForUser);
 
+routes.put("/update", authenticateJWT, colocationController.updateColocation);
+
 export default routes;

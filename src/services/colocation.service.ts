@@ -55,4 +55,23 @@ export class ColocationService {
     const presentedUser = plainToInstance(UserPresenter, user, { excludeExtraneousValues: true });
     return presentedUser;
   }
+
+  async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
+    const colocation = await this.colocationRepository.findColocationById(colocationId);
+    if (!colocation) {
+      throw new Error("Colocation not found");
+    }
+
+    colocation.name = colocationToUpdate.name || colocation.name;
+    colocation.adress = colocationToUpdate.adress || colocation.adress;
+    colocation.surface = colocationToUpdate.surface || colocation.surface;
+    colocation.rent = colocationToUpdate.rent || colocation.rent;
+    colocation.usersIds = colocationToUpdate.usersIds || colocation.usersIds;
+    colocation.totalAmount = colocationToUpdate.totalAmount || colocation.totalAmount;
+
+    const updatedColocation = await this.colocationRepository.updateColocation(colocationId, colocation);
+
+    const presentedColocation = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
+    return presentedColocation;
+  }
 }

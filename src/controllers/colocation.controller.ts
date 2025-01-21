@@ -49,3 +49,15 @@ export const deleteColocationForUser = async (req: Request, res: Response): Prom
         throw error;
     }
 };
+
+export const updateColocation = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const colocationId = req.body.colocationId;
+        const colocationToUpdate = plainToInstance(ColocationToUpdateDTO, req.body, { excludeExtraneousValues: true });
+        const colocation = await colocationService.updateColocation(colocationId, colocationToUpdate);
+        res.status(200).json(colocation);
+    } 
+    catch (error) {
+        throw error;
+    }
+};
