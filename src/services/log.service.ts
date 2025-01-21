@@ -13,27 +13,27 @@ export class LogService {
         return await this.logRepository.findLogById(logId);
     }
 
-    async findAllLogByUserId(userId: string): Promise<ILog | null> {
+    async findAllLogByUserId(userId: string): Promise<ILog[]> {
         return await this.logRepository.findAllLogByUserId(userId);
     }
 
-    async findAllLogByAction(action: string): Promise<ILog | null> {
+    async findAllLogByAction(action: string): Promise<ILog[]> {
         return await this.logRepository.findAllLogByAction(action);
     }
 
-    async findAllLogByObject(object: string): Promise<ILog | null> {
+    async findAllLogByObject(object: string): Promise<ILog[]> {
         return await this.logRepository.findAllLogByObject(object);
     }
 
-    async findAllLogByDate(date: Date): Promise<ILog | null> {
+    async findAllLogByDate(date: Date): Promise<ILog[]> {
         return await this.logRepository.findAllLogByDate(date);
     }
 
-    async findAllLogByActionAndObject(action: string, object: string): Promise<ILog | null> {
+    async findAllLogByActionAndObject(action: string, object: string): Promise<ILog[]> {
         return await this.logRepository.findAllLogByActionAndObject(action, object);
     }
 
-    async getAllLogs(): Promise<ILog | null> {
+    async getAllLogs(): Promise<ILog[]> {
         return await this.logRepository.getAllLogs();
     }
 }
