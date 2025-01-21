@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { UserRepository } from "../repositories/user.repository";
 import { IUser } from "../databases/mongodb/user.model";
+import { comparePassword } from "./bcrypt.service";
 
 export class AuthService {
     private userRepository = new UserRepository();
@@ -13,7 +14,7 @@ export class AuthService {
             throw new Error("Invalid email or password.");
         }
 
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        const isPasswordValid = await comparePassword(password, user.password);
         if (!isPasswordValid) {
             throw new Error("Invalid email or password.");
         }
