@@ -17,16 +17,15 @@ export const authenticateJWT = async (req: Request, res: Response, next: NextFun
     try {
         const decoded: any = jwt.verify(token, process.env.JWT_SECRET || "viscabarca");
         const user = await userRepository.findUserById(decoded.userId);
-    
+        
         if (!user) {
             return res.status(401).json(new CustomError("User not found", "unf002", HTTPStatusCode.BAD_REQUEST))
         }
-        
         const { password, ...userWithoutPassword } = user;
         (req as any).user = userWithoutPassword; 
         next();
 
     } catch (error) {
-        return res.status(401).json(new CustomError("User not found", "unf004", HTTPStatusCode.BAD_REQUEST))
+        return res.status(401).json(new CustomError("Wrong token", "wt001", HTTPStatusCode.UNAUTHORIZED))
     }
 };
