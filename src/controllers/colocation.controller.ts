@@ -15,7 +15,7 @@ export const createColocation = async (req: Request, res: Response): Promise<voi
         const colocation = await colocationService.createColocation(colocationToCreate);
         res.status(201).json(colocation);
     } catch (error) {
-        throw new CustomError("Invalid emailblalglgâl password", "iep001", HTTPStatusCode.BAD_REQUEST);
+        throw error;
     }
 };
 

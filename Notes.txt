@@ -1,0 +1,15 @@
+Notes
+
+Choix de mongoose pour ORM car impossible de se connecter à MySQL suite à un problème d'authentification
+entre le client et le serveur.
+
+Pour la gestion des erreurs :
+    utilisation de custom errors avec un fichier répertoriant les différentes erreurs http.
+    utilisation de code personnalisés pour localiser plus facilement les erreurs dans le code.
+
+Pour les logs :
+    utilisation d'un unique model pour tous les logs => plus simple à mettre en place.
+    mise en place d'une variable global pour enregistrer l'id de l'utilisateur connecté et le ressortir pour les logs.
+
+Gestion des Finances en cours.
+Pas de gestion des Tâches ménagères.
