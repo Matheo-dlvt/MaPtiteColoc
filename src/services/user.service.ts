@@ -1,5 +1,5 @@
 import { UserRepository } from "../repositories/user.repository";
-import { UserToCreateDTO } from "../types/user/dtos";
+import { UserToCreateDTO, UserToUpdateDTO } from "../types/user/dtos";
 import { CustomError } from '../utils/customError.exception';
 import { HTTPStatusCode } from '../types/errors';
 import { plainToInstance } from "class-transformer";
@@ -83,13 +83,12 @@ export class UserService {
     return presentedUser;
   }
 
-  async updateUser(userId: string, user: IUser): Promise<UserPresenter> {
-    const updatedUser = await this.userRepository.updateUser(userId, user);
+  // async updateUser(user: UserToUpdateDTO): Promise<UserPresenter> {
+  //   let updatedUser = plainToInstance(UserModel, user, { excludeExtraneousValues: true });
+  //   updatedUser = await this.userRepository.updateUser(user._id, user);
 
-    const presentedUser = plainToInstance(UserPresenter, updatedUser, {
-      excludeExtraneousValues: true,
-    });
+  //   const presentedUser = plainToInstance(UserPresenter, updatedUser, { excludeExtraneousValues: true });
 
-    return presentedUser;
-  }
+  //   return presentedUser;
+  // }
 }
