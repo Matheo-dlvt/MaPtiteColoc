@@ -83,7 +83,7 @@ export class UserService {
     return presentedUser;
   }
 
-  async updateUser(userId: string, user: UserPresenter): Promise<UserPresenter> {
+  async updateUser(userId: string, user: IUser): Promise<UserPresenter> {
     const updatedUser = await this.userRepository.updateUser(userId, user);
 
     const presentedUser = plainToInstance(UserPresenter, updatedUser, {
