@@ -73,7 +73,7 @@ export class UserService {
     const user = await this.userRepository.findUserById(userId);
 
     if (!user) {
-      throw new CustomError('User not found', 'unf001', HTTPStatusCode.NOT_FOUND);
+      throw new CustomError('User not found', 'unf002', HTTPStatusCode.NOT_FOUND);
     }
 
     const presentedUser = plainToInstance(UserPresenter, user, {

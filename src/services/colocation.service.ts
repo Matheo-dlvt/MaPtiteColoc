@@ -5,6 +5,8 @@ import { ColocationPresenter } from "../types/colocation/presenters";
 import { UserService } from "./user.service";
 import { plainToInstance } from 'class-transformer';
 import { UserPresenter } from "../types/user/presenters";
+import { CustomError } from '../utils/customError.exception';
+import { HTTPStatusCode } from '../types/errors';
 
 export class ColocationService {
   private colocationRepository: ColocationRepository = new ColocationRepository();
@@ -13,7 +15,7 @@ export class ColocationService {
   async createColocation(colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> {
     const exitColoc = await this.colocationRepository.findColocationByName(colocationToCreate.name);
     if (exitColoc) {
-      throw new Error("Colocation already exists");
+      throw new CustomError("Colocation already exist", "cae001", HTTPStatusCode.CONFLICT);
     }
 
     const newColocation = new ColocationModel({
@@ -59,7 +61,7 @@ export class ColocationService {
   async updateColocation(colocationId: string, colocationToUpdate: ColocationToUpdateDTO): Promise<ColocationPresenter | null> {
     const colocation = await this.colocationRepository.findColocationById(colocationId);
     if (!colocation) {
-      throw new Error("Colocation not found");
+      throw new CustomError("Colocation not found", "cnf001", HTTPStatusCode.BAD_REQUEST);
     }
 
     colocation.name = colocationToUpdate.name || colocation.name;

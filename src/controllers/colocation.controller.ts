@@ -4,6 +4,8 @@ import { ColocationPresenter } from '../types/colocation/presenters';
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { Request, Response } from "express";
+import { CustomError } from "../utils/customError.exception";
+import { HTTPStatusCode } from "../types/errors";
 
 const colocationService = new ColocationService();
 
@@ -13,7 +15,7 @@ export const createColocation = async (req: Request, res: Response): Promise<voi
         const colocation = await colocationService.createColocation(colocationToCreate);
         res.status(201).json(colocation);
     } catch (error) {
-        throw error;
+        throw new CustomError("Invalid emailblalglgâl password", "iep001", HTTPStatusCode.BAD_REQUEST);
     }
 };
 
