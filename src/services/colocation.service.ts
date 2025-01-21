@@ -7,10 +7,13 @@ import { plainToInstance } from 'class-transformer';
 import { UserPresenter } from "../types/user/presenters";
 import { CustomError } from '../utils/customError.exception';
 import { HTTPStatusCode } from '../types/errors';
+import { LogService } from "./log.service";
+import { LogModel } from "../databases/mongodb/log.model";
 
 export class ColocationService {
   private colocationRepository: ColocationRepository = new ColocationRepository();
   private userService: UserService = new UserService();
+  private logService = new LogService();
 
   async createColocation(colocationToCreate: ColocationToCreateDTO): Promise<ColocationPresenter> {
     const exitColoc = await this.colocationRepository.findColocationByName(colocationToCreate.name);
@@ -25,14 +28,50 @@ export class ColocationService {
       rent: colocationToCreate.rent
     });
 
+    const log = new LogModel({
+      userId: null,
+      userEmail: null,
+      colocationName: newColocation.name,
+      action: "create",
+      object: "colocation",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
+
     return await this.colocationRepository.saveColocation(newColocation);
   }
 
   async findColocationById(colocationId: string): Promise<ColocationPresenter | null> {
+    const log = new LogModel({
+      userId: null,
+      userEmail: null,
+      colocationName: null,
+      action: "findById",
+      object: "colocation",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
+
     return await this.colocationRepository.findColocationById(colocationId);
   }
 
   async findColocationByName(name: string): Promise<ColocationPresenter | null> {
+    const log = new LogModel({
+      userId: null,
+      userEmail: null,
+      colocationName: null,
+      action: "findByName",
+      object: "colocation",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
+
     return await this.colocationRepository.findColocationByName(name);
   }
 
@@ -74,6 +113,19 @@ export class ColocationService {
     const updatedColocation = await this.colocationRepository.updateColocation(colocation._id, colocation);
 
     const presentedColocation = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
+
+    const log = new LogModel({
+      userId: null,  //Id of connected user
+      userEmail: null,  //Email of connected user
+      colocationName: colocation.name,
+      action: "update",
+      object: "colocation",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
+
     return presentedColocation;
   }
 }

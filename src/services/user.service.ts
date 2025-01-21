@@ -6,9 +6,12 @@ import { plainToInstance } from "class-transformer";
 import { UserPresenter } from "../types/user/presenters";
 import { hashPassword } from "./bcrypt.service";
 import { IUser, UserModel } from '../databases/mongodb/user.model';
+import { LogService } from "./log.service";
+import { LogModel } from "../databases/mongodb/log.model";
 
 export class UserService {
   private userRepository: UserRepository = new UserRepository();
+  private logService = new LogService();
 
   async registerUser(userToCreate: UserToCreateDTO): Promise<UserPresenter> {
     // Check if the user already exists by email
@@ -38,6 +41,18 @@ export class UserService {
     // Transform saved user to UserPresenter
     const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true });
 
+    const log = new LogModel({
+      userId: savedUser._id,
+      userEmail: savedUser.email,
+      colocationName: null,
+      action: "register",
+      object: "user",
+      validated: true,
+      date: new Date()
+    });
+
+    this.logService.createLog(log);
+
     return presentedUser;
   }
 
@@ -52,6 +67,19 @@ export class UserService {
     const savedUser = await this.userRepository.updateUser(user._id, user);
 
     const presentedUser = plainToInstance(UserPresenter, savedUser, { excludeExtraneousValues: true });
+
+    const log = new LogModel({
+      userId: user._id,
+      userEmail: user.email,
+      colocationName: null,
+      action: "delete",
+      object: "user",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
+
     return presentedUser;
   }
   
@@ -65,6 +93,18 @@ export class UserService {
     const presentedUser = plainToInstance(UserPresenter, user, {
       excludeExtraneousValues: true,
     });
+
+    const log = new LogModel({
+      userId: user._id,
+      userEmail: user.email,
+      colocationName: null,
+      action: "getMe",
+      object: "user",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
 
     return presentedUser;
   }
@@ -80,6 +120,18 @@ export class UserService {
       excludeExtraneousValues: true,
     });
 
+    const log = new LogModel({
+      userId: user._id,
+      userEmail: user.email,
+      colocationName: null,
+      action: "findById",
+      object: "user",
+      validated: true,
+      date: Date.now()
+    });
+
+    this.logService.createLog(log);
+    
     return presentedUser;
   }
 
