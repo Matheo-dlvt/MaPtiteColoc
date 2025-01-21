@@ -1,4 +1,6 @@
 import { UserFinanceRepository } from '../repositories/userFinance.repository';
+import { UserFinanceToCreateDTO, UserFinanceToUpdateDTO, UserFinanceToSaveDTO } from '../types/userFinance/dtos';
+import { UserFinancePresenter } from '../types/userFinance/presenters';
 
 export class UserFinanceService {
     private userFinanceRepository: UserFinanceRepository = new UserFinanceRepository();

@@ -1,4 +1,6 @@
 import { UserFinanceService } from '../services/userFinance.service';
+import { UserFinanceToCreateDTO, UserFinanceToUpdateDTO, UserFinanceToSaveDTO } from '../types/userFinance/dtos';
+import { UserFinancePresenter } from '../types/userFinance/presenters';
 
 export const createUserFinance = async (userFinanceToCreate: UserFinanceToCreateDTO): Promise<UserFinancePresenter> => {
     return await UserFinanceService.createUserFinance(userFinanceToCreate);
