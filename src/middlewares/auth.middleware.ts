@@ -21,10 +21,7 @@ export const authenticateJWT = async (req: Request, res: Response, next: NextFun
         if (!user) {
             return res.status(401).json(new CustomError("User not found", "unf002", HTTPStatusCode.BAD_REQUEST))
         }
-        const userCredential = await userCredentialRepository.findUserCredentialByUserId(decoded.userId);
-        if (!userCredential) {
-            return res.status(401).json(new CustomError("User not found", "unf003", HTTPStatusCode.BAD_REQUEST))
-        }
+        
         const { password, ...userWithoutPassword } = user;
         (req as any).user = userWithoutPassword; 
         next();
