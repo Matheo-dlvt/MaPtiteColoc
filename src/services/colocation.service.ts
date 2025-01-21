@@ -9,6 +9,7 @@ import { CustomError } from '../utils/customError.exception';
 import { HTTPStatusCode } from '../types/errors';
 import { LogService } from "./log.service";
 import { LogModel } from "../databases/mongodb/log.model";
+import { getConnectedUserId } from "../static/userConnectd";
 
 export class ColocationService {
   private colocationRepository: ColocationRepository = new ColocationRepository();
@@ -29,7 +30,7 @@ export class ColocationService {
     });
 
     const log = new LogModel({
-      userId: null,
+      userId: getConnectedUserId(),
       userEmail: null,
       colocationName: newColocation.name,
       action: "create",
@@ -45,7 +46,7 @@ export class ColocationService {
 
   async findColocationById(colocationId: string): Promise<ColocationPresenter | null> {
     const log = new LogModel({
-      userId: null,
+      userId: getConnectedUserId(),
       userEmail: null,
       colocationName: null,
       action: "findById",
@@ -61,7 +62,7 @@ export class ColocationService {
 
   async findColocationByName(name: string): Promise<ColocationPresenter | null> {
     const log = new LogModel({
-      userId: null,
+      userId: getConnectedUserId(),
       userEmail: null,
       colocationName: null,
       action: "findByName",
@@ -115,7 +116,7 @@ export class ColocationService {
     const presentedColocation = plainToInstance(ColocationPresenter, updatedColocation, { excludeExtraneousValues: true });
 
     const log = new LogModel({
-      userId: null,  //Id of connected user
+      userId: getConnectedUserId(),
       userEmail: null,  //Email of connected user
       colocationName: colocation.name,
       action: "update",
