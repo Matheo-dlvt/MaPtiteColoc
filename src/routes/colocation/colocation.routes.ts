@@ -9,7 +9,7 @@ routes.post("/create", authenticateJWT, colocationController.createColocation);
 routes.get("/findColocationById", authenticateJWT, colocationController.findColocationById);
 routes.get("/findColocationByName", authenticateJWT, colocationController.findColocationByName);
 
-routes.delete("/deleteColocationForUser", authenticateJWT, colocationController.deleteColocationForUser);
+// routes.delete("/deleteColocationForUser", authenticateJWT, colocationController.deleteColocationForUser);
 
 routes.put("/update", authenticateJWT, colocationController.updateColocation);
 
