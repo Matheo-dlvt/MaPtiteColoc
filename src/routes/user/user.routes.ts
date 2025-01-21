@@ -5,13 +5,10 @@ import { authenticateJWT } from '../../middlewares/auth.middleware';
 
 const routes = Router();
 
-// Route pour l'inscription d'un utilisateur
 routes.post("/register", userController.registerUser);
-
-// Route pour la connexion d'un utilisateur
 routes.post("/login", userController.loginUser);
+routes.post("/refresh-token", userController.refreshToken);
 
-// Route pour récupérer le profil de l'utilisateur connecté
-//routes.get("/me", authenticateJWT, userController.findUser);
+routes.get("/me", authenticateJWT, userController.getMe);
 
 export default routes;
