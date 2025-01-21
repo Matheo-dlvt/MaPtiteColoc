@@ -37,3 +37,23 @@ export const loginUser = async (req: Request, res: Response) => {
     throw error;
   }
 };
+
+export const refreshToken = async (req: Request, res: Response) => {
+  try {
+    const authService = new AuthService();
+    const token = await authService.verifyRefreshToken(req.body.refreshToken);
+    res.status(200).json({ token });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMe = async (req: Request, res: Response) => {
+  try {
+    const token = await userService.getUserDetails(req.body.userId);
+    res.status(200).json({ token });
+  }
+  catch (error) {
+    throw error;
+  }
+};

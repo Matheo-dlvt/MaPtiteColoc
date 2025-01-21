@@ -18,14 +18,6 @@ export class ColocationToCreateDTO {
     @Expose()
     @IsNumber()
     rent: number;
-
-    @Expose()
-    @IsArray()
-    usersIds: string[];
-
-    @Expose()
-    @IsNumber()
-    totalAmount: number;
 }
 
 export class ColocationToUpdateDTO {
