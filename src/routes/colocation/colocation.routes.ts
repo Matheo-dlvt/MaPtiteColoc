@@ -1,14 +1,9 @@
 import { Router } from "express";
 import * as colocationController from "../../controllers/colocation.controller";
+import { authenticateJWT } from "../../middlewares/auth.middleware";
 
 const routes = Router();
 
-routes.post("/create", colocationController.createColocation);
-
-routes.get("/:id", colocationController.getColocationById);
-
-routes.put("/:id", colocationController.updateColocation);
-
-routes.delete("/:id", colocationController.deleteColocation);
+routes.post("/create", authenticateJWT, colocationController.createColocation);
 
 export default routes;
